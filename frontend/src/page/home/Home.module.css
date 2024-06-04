@@ -1,0 +1,22 @@
+.welcome h2{
+    color: black;
+}  
+
+.welcome{
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    margin: 0 100px;
+    color: #fff;
+    border-radius: 0px 0px 10px 10px;
+}
+
+.link1{
+    background-color: #0B5ED7;border-radius: 5px;
+    width: 140px;
+    text-decoration: none;
+    color: white;
+    padding: 15px 0;
+    padding-left: 20px;
+    font-size: larger;
+}
