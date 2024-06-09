@@ -1,4 +1,128 @@
+/* 
 .welcome h2{
+    color: black;
+}  
+
+.welcome{
+    /* display: flex; */
+    /* justify-content:space-between;
+    align-items: center;
+    /* margin: 0 100px; */
+    /* color: #fff;
+    border-radius: 0px 0px 10px 10px; */
+/* }  */
+
+/* .link1{
+    background-color: #0B5ED7;border-radius: 5px;
+    width: 140px;
+    text-decoration: none;
+    color: white;
+    padding: 15px 0;
+    padding-left: 40px;
+    font-size: larger;
+    text-align: right; */
+    
+/* }  */
+
+
+
+
+ 
+ .container {
+ 
+  justify-content: space-between; 
+   align-items: center; 
+
+  }  
+
+.welcome, .link1 {
+display: inline-block;
+justify-content: space-between;
+ margin-right: 329px;
+align-items: flex-end;
+  
+/* align-items: center; */
+
+}
+/* Home.module.css */
+
+
+.welcome  {
+  flex-direction: column;
+ 
+   padding-right: 50px;
+  align-items: flex-end; 
+  padding: 20px;
+  margin: 0;
+  
+  /* Add any styles for the welcome section */
+}
+
+
+.link1 {
+
+  background-color: #0b5ed7;
+  border-radius: 5px;
+
+  text-decoration: none;
+  color: white;
+  padding: 10px 15px;
+  margin-left: 3px;
+  font-size: larger;
+  text-align: right;
+  /* Add any styles for the link */
+}
+
+.search{
+  /* Styles for the search input container */
+  margin-bottom: 10px;
+}
+
+.search input {
+  /* Styles for the search input */
+  background-color: #ffffff;
+  outline: none;
+  width: 80%;
+  padding: 10px;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  color: #333333;
+  
+}
+
+.quesion {
+  /* Styles for the questions container */
+}
+
+.quesion > div {
+  /* Styles for individual question containers */
+  margin-bottom: 20px;
+  border: 1px solid #eeeeee;
+  padding: 10px;
+  border-radius: 5px;
+  
+}
+
+.quesion h2 {
+  /* Styles for question titles */
+  margin-bottom: 5px;
+  font-size: 18px;
+}
+
+.quesion p {
+  /* Styles for usernames */
+  font-size: 14px;
+  color: #666666;
+}
+
+
+
+
+
+
+
+
+/* .welcome h2{
     color: black;
 }  
 
@@ -19,4 +143,73 @@
     padding: 15px 0;
     padding-left: 20px;
     font-size: larger;
+ }
+
+
+
+
+
+
+ 
+ 
+/* Home.module.css */
+
+/* .welcome {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
 }
+
+.link1 {
+  background-color: #0B5ED7;
+  border-radius: 5px;
+  width: 140px;
+  text-decoration: none;
+  color: white;
+  padding: 15px 20px;
+  font-size: larger;
+  transition: background-color 0.3s;
+}
+
+.link1:hover {
+  background-color: #0849a7;
+}
+
+.quesion {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.quesion > div {
+  width: 300px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin: 10px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s;
+}
+
+.quesion > div:hover {
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+} */
+
+.quesion h2 {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.quesion p {
+  color: #666;
+} 
+.welcome .quesion{
+  position: left;
+  text-align: left;
+}
+
+

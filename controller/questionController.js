@@ -2,8 +2,26 @@
 
 const dbConnection = require("../db/dbConfig");
 const { v4 : uuidv4 } = require ("uuid")
+//async function getallquestions(req, res) {
+
+  
+//const dbConnection = require("../db/dbConfig");
 async function getallquestions(req, res) {
-  // res.send("All questions");
+  try {
+    // Retrieve all questions from the database
+    const [questions] = await dbConnection.query("SELECT * FROM question");
+
+    return res.status(200).json(questions);
+  } catch (error) {
+    console.log(error.message);
+    return res
+      .status(500)
+      .json({ msg: "Something went wrong, try again later!" });
+  }
+}
+
+async function postquestion(req, res) {
+  res.status(405).json({ msg: "Method Not Allowed" });
 }
 
 async function postquestion(req, res) {

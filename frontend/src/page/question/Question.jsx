@@ -1,10 +1,55 @@
-import React from "react";
+//import React from "react";
 import { RxDotFilled } from "react-icons/rx";
 import style from "./Question.module.css";
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 import Header from "../header/Header";
 
-function Question() {
+import React, { useContext } from "react";
+import { useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "../../axios/axiosConfig";
+import { AppState } from "../../App";
+// import "./question.css";
+// // import axios from "../../../axiosConfig";
+//import axios from "../../../axiosConfig";
+// import { AppState } from "../../../App";
+
+// function Question() {
+  export default function Question() {
+    const navigate = useNavigate();
+    const titleDom = useRef();
+    const descriptionDom = useRef();
+    //  const lastnameDom = useRef();
+
+    const { user, setUser } = useContext(AppState);
+    console.log(user);
+    async function handleSubmit(e) {
+      e.preventDefault();
+
+      const titleValue = titleDom.current.value;
+      const descriptionValue = descriptionDom.current.value;
+
+      if (!titleValue || !descriptionValue) {
+        alert("Please provide all required information");
+        return;
+      }
+
+      try {
+        await axios.post("/questions/postquestion", {
+          title: titleValue,
+          description: descriptionValue,
+          userid: user.userid,
+          // userid: userId, // Include userId when posting the question
+          // questionid: questionId, // Include questionId when posting the question
+        });
+        alert("question posted successfully");
+        navigate("/");
+      } catch (error) {
+        alert("something went wrong");
+        console.log(error);
+      }
+    }
+  
   return (
     <div>
       <div>
@@ -38,22 +83,96 @@ function Question() {
         </div>
         <br />
         <div className={style.ask_form}>
-          <input type="text" placeholder="Title" />
-          <br />
-          <br />
-          <textarea
-            id="w3review"
-            name="w3review"
-            rows="7"
-            // cols="122"
-            placeholder=" Question Describe"
-          ></textarea>
-          <br />
-          <button className={style.btn}>Post your Question</button>
+          <form onSubmit={handleSubmit}>
+            <input ref={titleDom} type="text" placeholder="Title" />
+            <br />
+            <br />
+            <textarea
+              ref={descriptionDom}
+              id="w3review"
+              name="w3review"
+              rows="7"
+              // cols="122"
+              placeholder=" Question Describe"></textarea>
+            <br />
+            <button className={style.btn}>Post your Question</button>
+          </form>
         </div>
       </div>
     </div>
   );
 }
 
-export default Question;
+//export default Question;
+
+// export default function Question() {
+//   const navigate = useNavigate();
+//   const titleDom = useRef();
+//   const descriptionDom = useRef();
+//   //  const lastnameDom = useRef();
+
+//   const { user,setUser } = useContext(AppState);
+//    console.log(user);
+//   async function handleSubmit(e) {
+//     e.preventDefault();
+
+//     const titleValue = titleDom.current.value;
+//     const descriptionValue = descriptionDom.current.value;
+
+//      if (!titleValue || !descriptionValue) {
+//        alert("Please provide all required information");
+//        return;
+//      }
+
+//     try {
+//       await axios.post("/questions/postquestion", {
+//         title: titleValue,
+//         description: descriptionValue,
+//         userid: user.userid,
+//         // userid: userId, // Include userId when posting the question
+//         // questionid: questionId, // Include questionId when posting the question
+//       });
+//       alert("question posted successfully");
+//        navigate("/");
+//     } catch (error) {
+//       alert("something went wrong");
+//       console.log(error);
+//     }
+//   }
+
+//   return (
+//     <div className="ubove-container">
+//       <h2>Steps to write a good question</h2>
+//       <ul>
+//         <li>Summerize your problem in a one-line title.</li>
+//         <li>Describe your problem in more detail.</li>
+//         <li>describe what you tried and what you expected to happen</li>
+//         <li>Review your question and post it to the site</li>
+//       </ul>
+//       <div className="public-question-form">
+//         <h2>Ask a Public Question</h2>
+//         <form onSubmit={handleSubmit}>
+//           <div className="form-group">
+//             <label htmlFor="question-title">Title:</label>
+//             <input
+//               ref={titleDom}
+//               type="text"
+//               id="question-title"
+//               // name="question-title"
+//               // required
+//             />
+//           </div>
+//           <div className="form-group">
+//             <label htmlFor="question-description">Description:</label>
+//             <textarea
+//               ref={descriptionDom}
+//               id="question-description"
+//               name="question-description"
+//               rows="4"></textarea>
+//           </div>
+//           <button type="submit">Post Question</button>
+//         </form>
+//       </div>
+//     </div>
+//   );
+// }
