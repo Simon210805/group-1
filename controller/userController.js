@@ -92,9 +92,36 @@ async function checkUser(req, res) {
   const userid = req.user.userid;
   res.status(StatusCodes.OK).json({ msg: "valid user", username, userid });
 }
+async function getuser(req, res) {
+  try{
+const [user] = await dbConnection.query(
+  "SELECT * FROM users");
+  return res.status(200).json(user);
+}catch (error) {
+  console.log(error.message);
+  return res
+    .status(500)
+    .json({ msg: "Something went wrong, try again later!" });
+}
+}
+
+
+
+
+  // const [questions] = await dbConnection.query("SELECT * FROM question");
+
+  //   return res.status(200).json(questions);
+  // } catch (error) {
+  //   console.log(error.message);
+  //   return res
+  //     .status(500)
+  //     .json({ msg: "Something went wrong, try again later!" });
+  // }
+
 
 module.exports = {
   register,
   login,
   checkUser,
+  getuser,
 };

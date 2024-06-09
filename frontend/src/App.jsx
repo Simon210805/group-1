@@ -7,7 +7,8 @@ import style from "./App.module.css";
 
 import Home from "./page/home/Home";
 import Register from "./page/register/Register";
-import Login from "./page/login/Login";
+//import Login from "./page/login/Login";
+import Login from  './page/login/Login.jsx' 
 import Question from "./page/question/Question.jsx";
 
 import axios from "./axios/axiosConfig.js";

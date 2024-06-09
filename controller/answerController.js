@@ -34,6 +34,22 @@ async function postanswer(req, res) {
   }
 }
 
+async function getallanswer(req, res) {
+  try {
+    // Retrieve all questions from the database
+    const [answer] = await dbConnection.query("SELECT * FROM answers");
+
+    return res.status(200).json(answer);
+  } catch (error) {
+    console.log(error.message);
+    return res
+      .status(500)
+      .json({ msg: "Something went wrong, try again later!" });
+  }
+}
 
 
-module.exports = { postanswer };
+
+
+
+module.exports = { postanswer, getallanswer };
