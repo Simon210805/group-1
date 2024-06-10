@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import style from "../../page/style.module.css";
 import Header from "../header/Header";
 import axios from "../../axios/axiosConfig";
+import Footer from "../footer/Footer";
 
 function Login() {
   const navigate = useNavigate();
@@ -156,6 +157,7 @@ function Login() {
           </div>
         </div>
       </section>
+      <Footer />
     </section>
   );
 }

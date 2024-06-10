@@ -6,8 +6,8 @@ import { Link } from "react-router-dom";
 import axios from "../../axios/axiosConfig";
 import { FaRegUserCircle } from "react-icons/fa";
 import { IoIosArrowForward } from "react-icons/io";
-import { IoMdSearch } from "react-icons/io";
 import { FaSearch } from "react-icons/fa"; 
+import Footer from "../footer/Footer";
 
 function Home() {
   const { user } = useContext(AppState);
@@ -74,7 +74,7 @@ function Home() {
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder="Search question"
+                placeholder="Search questions..."
                 className=""
               />
               <FaSearch className={style["search-icon"]} />
@@ -122,6 +122,9 @@ function Home() {
           ))}
         </div>
       </div>
+      <br />
+      <br />
+      <Footer />
     </div>
   );
 }
