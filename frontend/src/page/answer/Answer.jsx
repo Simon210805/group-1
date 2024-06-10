@@ -1,53 +1,80 @@
 
-import { RxDotFilled } from "react-icons/rx";
 import style from "./Answer.module.css";
 import Header from "../header/Header";
-import React, { useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import axios from "../../axios/axiosConfig";
 import { AppState } from "../../App";
 import Footer from "../footer/Footer";
 
-
-export default function answer() {
-  const navigate = useNavigate();
+export default function Answer() {
+  const { user } = useContext(AppState);
+  const [answers, setAnswers] = useState([]);
+  const [newAnswer, setNewAnswer] = useState("");
   const answerDom = useRef();
-  const { user, setUser } = useContext(AppState);
-  console.log(user);
+  const { questionid } = useParams();
+  const [question, setQuestion] = useState({}); // Initialize as an object
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Fetch answers with associated user information
+        const response = await axios.get(
+          `http://localhost:5500/api/answers/getallanswer/${questionid}` // Include questionid
+        );
+        setAnswers(response.data);
+
+        // Fetch the specific question details
+        const questionResponse = await axios.get(
+          "http://localhost:5500/api/questions/getallquestions"
+        );
+        setQuestion(questionResponse.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []); // Fetch data when questionid changes
+
   async function handleSubmit(e) {
     e.preventDefault();
 
-    const answereValue = answerDom.current.value;
-    //const descriptionValue = descriptionDom.current.value;
+    const answerValue = answerDom.current.value;
 
-    if (!answereValue) {
+    if (!answerValue) {
       alert("Please provide all required information");
       return;
     }
 
     try {
-      await axios.post("/answers/postanswer", {
-        answer: answereValue,
-        // description: descriptionValue,
-        userid: user.userid,
-        // userid: userId, // Include userId when posting the question
-         questionid: questionId, // Include questionId when posting the question
-      });
-      alert("question posted successfully");
-      // navigate("/");
+      await axios.post(
+        `http://localhost:5500/api/answers/postanswer/${questionid}`,
+        {
+          answer: answerValue,
+          userid: user.userid,
+        }
+      );
+      alert("Answer posted successfully!");
+
+      // Refresh answers after posting
+      const updatedResponse = await axios.get(
+        `http://localhost:5500/api/answers/getallanswer/${questionid}`
+      );
+      setAnswers(updatedResponse.data);
+
+      // Clear the input field after posting answer
+      setNewAnswer("");
     } catch (error) {
-      alert("something went wrong");
-      console.log(error);
+      console.error("Error posting answer:", error);
     }
   }
 
   return (
     <div>
-      <div>
-        <Header />
-      </div>
+      <Header />
       <div className={style.title}>
         <h1>Question</h1>
       </div>
@@ -56,22 +83,39 @@ export default function answer() {
           <h1>Answer the top question</h1>
           <br />
           <Link className={style.link} to="/">
-            go to question page
+            Go to question page
           </Link>
         </div>
         <br />
 
         <div className={style.answer_form}>
+          <h2>Question:</h2>
+         
+          <p>
+            <strong>Title:</strong> {question.title}
+          </p>
+          <p>
+            <strong>Description:</strong> {question.description}
+          </p>
+
+          <h2>Answers From the Community:</h2>
+          <ul>
+            {answers.map((answer) => (
+              <li key={answer.answerid}>
+                <strong>{answer.username}:</strong> {answer.answer}
+              </li>
+            ))}
+          </ul>
+
           <form onSubmit={handleSubmit}>
             <textarea
               ref={answerDom}
-              id="w3review"
-              name="w3review"
+              onChange={(e) => setNewAnswer(e.target.value)}
+              value={newAnswer}
               rows="7"
-              // cols="122"
-              placeholder="your answer......"></textarea>
+              placeholder="Your answer"></textarea>
             <br />
-            <button className={style.btn}>Post your Answer</button>
+            <button type="submit">Post your Answer</button>
           </form>
         </div>
       </div>
@@ -79,6 +123,3 @@ export default function answer() {
     </div>
   );
 }
-
-
-

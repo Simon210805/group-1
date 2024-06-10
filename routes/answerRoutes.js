@@ -4,8 +4,8 @@ const router = express.Router();
 const { postanswer, getallanswer } = require("../controller/answerController");
 //authentication middleware
 //const { postanswer, getallanswers} = require("../controller/answerController");
-router.post("/postanswer", postanswer)
-router.get("/getallanswer", getallanswer);
+router.post("/postanswer/:questionid", postanswer)
+router.get("/getallanswer/:questionid", getallanswer);
   
 
 module.exports = router
