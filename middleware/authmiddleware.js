@@ -15,7 +15,7 @@ const jwt = require("jsonwebtoken");
 
 
    try {
-     const { username, userid } = jwt.verify(token, process.env.JWS_SECRET);
+     const { username, userid } = jwt.verify(token, process.env.JWT_SECRET);
      req.user = { username, userid };
      next();
    } catch (err) {

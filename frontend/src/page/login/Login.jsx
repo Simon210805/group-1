@@ -1,59 +1,49 @@
-import React, { useRef } from "react";
-//import axios from "../../axios/axiosConfig"
+import React, { useRef, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import style from "../../page/style.module.css";
 import Header from "../header/Header";
 import axios from "../../axios/axiosConfig";
-
-// export default Loginimport React from "react";
-// import { useRef } from "react";
-// import { Link, useNavigate } from "react-router-dom";
-// import axios from "../../../axiosConfig";
-
-// function Login() {
-
-//   const navigate = useNavigate()
-
-//   const emailDom = useRef(null)
-//   const passwordDom = useRef(null);
-
-//   async function handleSubmit(e) {
-//     e.preventDefault();
-//     const emailvalue = emailDom.current.value
-//     const passwordvalue = passwordDom.current.value
-//     if (!emailvalue || !passwordvalue) {
-//       alert("please provide all required INFO")
-//       return;
-//     }
-//     try {
-//        const { data } = await axios.post("/users/login", {
-//         email: emailvalue,
-//         password: passwordvalue
-//       })
-//       alert("login successfull. welcome")
-//       localStorage.setItem("token", data.token)
-//       // navigate("/")
-//       console.log(data)
-
-//     } catch (error) {
-//       alert('something went wrong. please try again')
-//       console.log(error.response)
-//     }
-//   }
+import Footer from "../footer/Footer";
 
 function Login() {
   const navigate = useNavigate();
-
   const emailDom = useRef();
   const passwordDom = useRef();
+  const [errors, setErrors] = useState({});
 
+
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: value ? "" : `${name} is required`,
+    }));
+  };
+  const handleFocus = (e) => {
+    const { name } = e.target;
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: "",
+    }));
+  };
+  
   async function handleSubmit(e) {
     e.preventDefault();
 
     const emailValue = emailDom.current.value;
     const passwordValue = passwordDom.current.value;
-    if (!emailValue || !passwordValue) {
-      alert("Please provide all required information");
+    // if (!emailValue || !passwordValue) {
+    //   alert("Please provide all required information");
+    //   return;
+    // }
+
+  let newErrors = {};
+    if (!emailValue) newErrors.email = "Email is required";
+    if (!passwordValue) newErrors.password = "Password is required";
+
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length > 0) {
       return;
     }
 
@@ -64,7 +54,7 @@ function Login() {
       });
       alert("Login successfully.");
       localStorage.setItem("token", data.token);
-      //navigate("/");
+      navigate("/");
       console.log(data);
     } catch (error) {
       alert(error?.response?.data?.msg);
@@ -100,11 +90,29 @@ function Login() {
             <div className={style.user_register}>
               
               {/* <span>email :---</span> */}
-              <input ref={emailDom} type="text" placeholder="email" />
+              <input
+                ref={emailDom}
+                type="text"
+                name="email"
+                placeholder="Email"
+                style={{ backgroundColor: errors.email ? "#ffebee" : "white" }}
+                onBlur={handleBlur}
+                onFocus={handleFocus}
+              />
               <br />
               <br />
               {/* <span>password :---</span> */}
-              <input ref={passwordDom} type="password" placeholder="password" />
+              <input
+                ref={passwordDom}
+                type="password"
+                name="password"
+                placeholder="Password"
+                style={{
+                  backgroundColor: errors.password ? "#ffebee" : "white",
+                }}
+                onBlur={handleBlur}
+                onFocus={handleFocus}
+              />
               <br />
               <br />
               <div className={style.user_register1}>
@@ -149,67 +157,8 @@ function Login() {
           </div>
         </div>
       </section>
+      <Footer />
     </section>
   );
 }
 export default Login;
-
-// export default Loginimport React from "react";
-// import { useRef } from "react";
-// import { Link, useNavigate } from "react-router-dom";
-// import axios from "../../../axiosConfig";
-
-// function Login() {
-//   const navigate = useNavigate();
-
-//   const emailDom = useRef();
-//   const passwordDom = useRef();
-
-//   async function handleSubmit(e) {
-//     e.preventDefault();
-
-//     const emailValue = emailDom.current.value;
-//     const passwordValue = passwordDom.current.value;
-//     if (!emailValue || !passwordValue) {
-//       alert("Please provide all required information");
-//       return;
-//     }
-
-//     try {
-//       const { data } = await axios.post("/users/login", {
-//         email: emailValue,
-//         password: passwordValue,
-//       });
-//       alert("Login successfully.");
-//       localStorage.setItem("token", data.token);
-//       //navigate("/");
-//       console.log(data);
-//     } catch (error) {
-//       alert(error?.response?.data?.msg);
-//       console.log(error.response.data);
-//     }
-//   }
-
-//   return (
-//     <section>
-//       <form onSubmit={handleSubmit}>
-//         <div>
-//           <span>Email : </span>
-//           <input ref={emailDom} type="email" placeholder="email" />
-//         </div>
-//         <br />
-//         <div>
-//           <span>Password : </span>
-//           <input ref={passwordDom} type="password" placeholder="password" />
-//           {/* <input  ref={passwordDom} type="password" placeholder="password" autocomplete="current-password"/> */}
-//         </div>
-//         <button type="submit">Login</button>
-//         <br />
-//       </form>
-
-//       <Link to={"/register"}>register</Link>
-//     </section>
-//   );
-// }
-
-// export default Login;

@@ -35,7 +35,7 @@ function App() {
   }
   useEffect(() => {
     checkUser();
-  }, []);
+  }, [token]);
   return (
     <div className={style.App}>
       <AppState.Provider value={{ user, setUser }}>

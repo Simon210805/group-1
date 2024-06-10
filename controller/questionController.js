@@ -9,7 +9,7 @@ const { v4 : uuidv4 } = require ("uuid")
 async function getallquestions(req, res) {
   try {
     // Retrieve all questions from the database
-    const [questions] = await dbConnection.query("SELECT * FROM question");
+    const [questions] = await dbConnection.query("SELECT * FROM questions");
 
     return res.status(200).json(questions);
   } catch (error) {
@@ -42,7 +42,7 @@ try {
 
   // Check if a question with the provided questionid exists in the question table
   const [existingQuestion] = await dbConnection.query(
-    "SELECT questionid FROM question WHERE questionid = ?",
+    "SELECT questionid FROM questions WHERE questionid = ?",
     [questionid]
   );
 
@@ -53,7 +53,7 @@ try {
 
   // If the user exists and the question doesn't exist, proceed to insert the question
   await dbConnection.query(
-    "INSERT INTO question (title, description, userid, questionid) VALUES (?, ?, ?, ?)",
+    "INSERT INTO questions (title, description, userid, questionid) VALUES (?, ?, ?, ?)",
     [title, description, userid, questionid]
   );
 
