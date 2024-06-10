@@ -1,12 +1,13 @@
 const dbConnection = require("../db/dbConfig");
-const { v4: uuidv4 } = require("uuid");
+
 
 async function postanswer(req, res) {
+   const { questionid } = req.params;
   const { answer, userid } = req.body;
 
   try {
     // Generate a unique question ID
-    const questionId = uuidv4();
+    
 
     // Check if the provided userId exists in the users table
     const [user] = await dbConnection.query(
@@ -21,8 +22,8 @@ async function postanswer(req, res) {
 
     // Insert the answer into the answers table
     await dbConnection.query(
-      "INSERT INTO answers (answer, userid, questionId) VALUES (?, ?, ?)",
-      [answer, userid, questionId]
+      "INSERT INTO answers (answer, userid, questionid) VALUES (?, ?, ?)",
+      [answer, userid, questionid]
     );
 
     return res.status(200).json({ msg: "Answer posted" });
@@ -35,11 +36,20 @@ async function postanswer(req, res) {
 }
 
 async function getallanswer(req, res) {
+  const {questionid}=req.params
+  console.log(questionid)
   try {
-    // Retrieve all questions from the database
-    const [answer] = await dbConnection.query("SELECT * FROM answers");
 
-    return res.status(200).json(answer);
+const allAnswersForQuestion = `
+        SELECT username, answer FROM 
+            answers JOIN users 
+                ON
+            answers.userid = users.userid 
+            WHERE answers.questionid = ?`;
+const [answers] = await dbConnection.query(allAnswersForQuestion, [questionid]);
+console.log(answers)
+    return res.status(200).json(answers);
+    
   } catch (error) {
     console.log(error.message);
     return res

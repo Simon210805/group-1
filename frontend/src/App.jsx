@@ -44,7 +44,9 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/question" element={<Question />} />
-          <Route path="/answer" element={<Answer />} />
+          <Route path="/answer/:questionid" element={<Answer />} />
+          {/* <Route path="/answer/:answerId" component={SpecificAnswerComponent} /> */}
+          {/* <Route path="/answer/:questionId" component={<Answer />} />  */}
         </Routes>
       </AppState.Provider>
     </div>

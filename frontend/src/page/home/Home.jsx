@@ -41,7 +41,7 @@ function Home() {
   const filteredQuestions = userdata.filter((question) =>
     question.title.toLowerCase().includes(search.toLowerCase())
   );
-
+console.log(userdata)
   return (
     <div>
       <div>
@@ -67,12 +67,16 @@ function Home() {
           />
         </div>
         <div className={style.quesion}>
+
           {filteredQuestions.map((question) => (
             <div key={question.questionId}>
               {/* <Link to={`/answer/${question.questionId}`}></Link> */}
-              <Link to="/answer/">
+              <Link to={`/answer/${question.questionid}`}>
                 <h2>{question.title}</h2>
               </Link>
+              
+
+
               
               {/* <Link to="/answer/"></Link> */}
               {/* <h2>{question.title}</h2> */}
