@@ -60,10 +60,6 @@ export default function Answer() {
       alert("Answer posted successfully!");
 
       // Refresh answers after posting
-      const updatedResponse = await axios.get(
-        `http://localhost:5500/api/answers/getallanswer/${questionid}`
-      );
-      setAnswers(updatedResponse.data);
 
       // Clear the input field after posting answer
       setNewAnswer("");
@@ -123,3 +119,4 @@ export default function Answer() {
     </div>
   );
 }
+// git checkuot -b hi

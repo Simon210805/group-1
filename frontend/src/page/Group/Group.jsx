@@ -4,6 +4,7 @@ const Group = () => {
   return (
     <div>
       Hello
+      <h2>hi</h2>
     </div>
   )
 }

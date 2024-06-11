@@ -83,18 +83,10 @@ console.log(userdata)
         </div>
         <br />
         <div className={style.quesion}>
-
           {filteredQuestions.map((question) => (
             <div key={question.questionId}>
-
               {/* <Link to={`/answer/${question.questionId}`}></Link> */}
-              <Link to={`/answer/${question.questionid}`}>
-                <h2>{question.title}</h2>
-              </Link>
-              
 
-
-              
               {/* <Link to="/answer/"></Link> */}
               {/* <h2>{question.title}</h2> */}
               {/* Find the corresponding user for the question */}
@@ -115,24 +107,20 @@ console.log(userdata)
                     </h3>
                   </div>
 
-                  {/* <Link to={`/answer/${question.questionId}`}></Link> */}
-                  {/* <Link to="/answer/">
-                  <h2>{question.title}</h2>
-                </Link> */}
+                 
 
                   <div className={style.title}>
                     <h3>{question.title}</h3>
                   </div>
                 </div>
                 <div className={style.arrow_icon}>
-                  <Link to="/answer">
+                  <Link to={`/answer/${question.questionid}`}>
                     <h2>
                       <IoIosArrowForward size={30} />
                     </h2>
                   </Link>
                 </div>
               </div>
-
             </div>
           ))}
         </div>
