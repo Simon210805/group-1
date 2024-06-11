@@ -1,13 +1,41 @@
 .title{
     margin-left: 80px;
 }
+
+.Question1{
+    color: rgb(238, 0, 255);
+}
 .Question h1{
 margin-left: 40%;
 }
 .Question p{
     margin-left: 40%;
 }
+hr{
+    width: 85%;
+}
 
+.answersFromCommunity{
+    padding: 10px 0;
+}
+
+.userAnswer{
+    display: flex;
+    gap: 120px;
+    border-bottom: 1px solid black;
+    width: 85%;
+}
+.circle{
+    margin-top: 10px;
+}
+
+.userAnswer h2{
+    margin-left: 9px;
+}
+
+.userAnswer div h4 {
+margin-top: -45px;
+}
 
 .answer{
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);

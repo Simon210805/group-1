@@ -8,11 +8,15 @@ import { Link, useParams } from "react-router-dom";
 import axios from "../../axios/axiosConfig";
 import { AppState } from "../../App";
 import Footer from "../footer/Footer";
+import { FaRegUserCircle } from "react-icons/fa";
+import { FaArrowRight } from "react-icons/fa";
+
 
 export default function Answer() {
   const { user } = useContext(AppState);
   const [answers, setAnswers] = useState([]);
   const [newAnswer, setNewAnswer] = useState("");
+  // const [getuser, setgetuser] = useState([]);
   const answerDom = useRef();
   const { questionid } = useParams();
   const [question, setQuestion] = useState({}); // Initialize as an object
@@ -30,7 +34,10 @@ export default function Answer() {
         const questionResponse = await axios.get(
           "http://localhost:5500/api/questions/getallquestions"
         );
-        setQuestion(questionResponse.data);
+        let singleQuestion = questionResponse.data.find(
+          (question) => question.questionid === questionid
+        )
+         setQuestion(singleQuestion);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -67,12 +74,52 @@ export default function Answer() {
       console.error("Error posting answer:", error);
     }
   }
+  console.log(question);
 
   return (
     <div>
       <Header />
       <div className={style.title}>
         <h1>Question</h1>
+        <br />
+        <h1 className={style.Question1}>
+          <FaArrowRight size={12} /> {question.title}
+        </h1>
+
+        <h3 className={style.Question1} style={{ padding: "10px 0" }}>
+          <FaArrowRight size={12} /> {question.description}
+        </h3>
+        <hr />
+        <h2 className={style.answersFromCommunity}>
+          Answers From the Community
+        </h2>
+        <hr />
+        <ul>
+          <br />
+          {answers.map((answer, question, index) => (
+            <div key={index}>
+              <div key={question.questionId}>
+                <div>
+                  <div className={style.circle}>
+                    <FaRegUserCircle className={style.icon} size={70} />
+                  </div>
+
+                  {/* <h3 style={{ marginLeft: "15px" }}>
+                    
+                    {getuser.find((user) => user.userid === question.userid)
+                      ?.username || "Unknown"}
+                  </h3> */}
+                </div>
+              </div>
+              <li className={style.userAnswer} key={answer.answerid}>
+                <h2>{answer.username}</h2>
+                <div>
+                  <h4>{answer.answer}</h4>
+                </div>
+              </li>
+            </div>
+          ))}
+        </ul>
       </div>
       <div className={style.answer}>
         <div className={style.answer_public_question}>
@@ -85,33 +132,16 @@ export default function Answer() {
         <br />
 
         <div className={style.answer_form}>
-          <h2>Question:</h2>
-         
-          <p>
-            <strong>Title:</strong> {question.title}
-          </p>
-          <p>
-            <strong>Description:</strong> {question.description}
-          </p>
-
-          <h2>Answers From the Community:</h2>
-          <ul>
-            {answers.map((answer) => (
-              <li key={answer.answerid}>
-                <strong>{answer.username}:</strong> {answer.answer}
-              </li>
-            ))}
-          </ul>
-
           <form onSubmit={handleSubmit}>
             <textarea
               ref={answerDom}
               onChange={(e) => setNewAnswer(e.target.value)}
               value={newAnswer}
               rows="7"
-              placeholder="Your answer"></textarea>
+              placeholder="Your answer"
+            ></textarea>
             <br />
-            <button type="submit">Post your Answer</button>
+            <button className={style.btn} type="submit">Post your Answer</button>
           </form>
         </div>
       </div>

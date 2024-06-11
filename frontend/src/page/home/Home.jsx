@@ -83,31 +83,22 @@ console.log(userdata)
         </div>
         <br />
         <div className={style.quesion}>
-          {filteredQuestions.map((question) => (
+          {filteredQuestions.map((question, index) => (
+            <div key={index}>
             <div key={question.questionId}>
-              {/* <Link to={`/answer/${question.questionId}`}></Link> */}
-
-              {/* <Link to="/answer/"></Link> */}
-              {/* <h2>{question.title}</h2> */}
-              {/* Find the corresponding user for the question */}
-
               <div className={style.quesion_container}>
                 <div className={style.userQuesion}>
                   <div>
                     <div>
                       <FaRegUserCircle className={style.icon} size={70} />
                     </div>
-                    {/* <Link to="/answer/"></Link> */}
-                    {/* <h2>{question.title}</h2> */}
-                    {/* Find the corresponding user for the question */}
+                    
                     <h3 style={{ marginLeft: "15px" }}>
                       {/* Asked by:{" "} */}
                       {getuser.find((user) => user.userid === question.userid)
                         ?.username || "Unknown"}
                     </h3>
                   </div>
-
-                 
 
                   <div className={style.title}>
                     <h3>{question.title}</h3>
@@ -120,6 +111,7 @@ console.log(userdata)
                     </h2>
                   </Link>
                 </div>
+              </div>
               </div>
             </div>
           ))}
